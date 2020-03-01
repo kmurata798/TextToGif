@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
+	// "github.com/kmurata798/goslackit/giphy"
 )
 
 /*
@@ -12,7 +13,7 @@ import (
    NOTE: command_arg_1 and command_arg_2 represent optional parameteras that you define
    in the Slack API UI
 */
-const helpMessage = "type in '@BOT_NAME <command_arg_1> <command_arg_2>'"
+const helpMessage = "type in '@Text to Gif <command_arg_1> <command_arg_2>. \n\n '"
 
 /*
    CreateSlackClient sets up the slack RTM (real-timemessaging) client library,
@@ -51,8 +52,38 @@ func RespondToEvents(slackClient *slack.RTM) {
 
 			// START SLACKBOT CUSTOM CODE
 			// ===============================================================
-			sendResponse(slackClient, message, ev.Channel)
-			sendHelp(slackClient, message, ev.Channel)
+			splitMessage := strings.Fields(message) //seperates string
+
+			//leaving a blank command will display the help menu
+
+			if message == "" {
+				sendHelp(slackClient, ev.Channel)
+			}
+
+			// handling simple commands
+			switch strings.ToLower(splitMessage[0]) {
+			case "help":
+				sendHelp(slackClient, ev.Channel)
+			case "echo":
+				echoMessage(slackClient, strings.Join(splitMessage[1:], " "), ev.Channel)
+			// case "gif":
+			// 	sendGif(slackClient, splitMessage[1:], ev.Channel)
+			}
+		case *slack.PresenceChangeEvent:
+			fmt.Printf("Presence Change: %v\n", ev)
+
+		case *slack.LatencyReport:
+			fmt.Printf("Current latency: %v\n", ev.Value)
+
+		case *slack.DesktopNotificationEvent:
+			fmt.Printf("Desktop Notification: %v\n", ev)
+
+		case *slack.RTMError:
+			fmt.Printf("Error: %s\n", ev.Error())
+
+		case *slack.InvalidAuthEvent:
+			fmt.Printf("Invalid credentials")
+			return
 			// ===============================================================
 			// END SLACKBOT CUSTOM CODE
 		default:
@@ -62,18 +93,24 @@ func RespondToEvents(slackClient *slack.RTM) {
 }
 
 // sendHelp is a working help message, for reference.
-func sendHelp(slackClient *slack.RTM, message, slackChannel string) {
-	if strings.ToLower(message) != "help" {
-		return
-	}
+func sendHelp(slackClient *slack.RTM, slackChannel string) {
 	slackClient.SendMessage(slackClient.NewOutgoingMessage(helpMessage, slackChannel))
 }
 
 // sendResponse is NOT unimplemented --- write code in the function body to complete!
 
-func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
-	command := strings.ToLower(message)
-	println("[RECEIVED] sendResponse:", command)
+// func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
+// 	command := strings.ToLower(message)
+// 	println("[RECEIVED] sendResponse:", command)
+
+// 	slackClient.SendMessage(slackClient.NewOutgoingMessage(command, slackChannel))
+// }
+// echoMessage will just echo anything after the echo keyword.
+func echoMessage(slackClient *slack.RTM, message, slackChannel string) {
+	splitMessage := strings.Fields(strings.ToLower(message))
+
+	slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(splitMessage[1:], " "), slackChannel))
+}
 
 	// START SLACKBOT CUSTOM CODE
 	// ===============================================================
@@ -83,4 +120,4 @@ func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
 	//      2. STRETCH: Write a goroutine that calls an external API based on the data received in this function.
 	// ===============================================================
 	// END SLACKBOT CUSTOM CODE
-}
+

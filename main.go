@@ -2,11 +2,11 @@
 package main
 
 import (
-	"os"
 	"net/http"
+	"os"
 
-	"github.com/droxey/goslackit/slack"
 	_ "github.com/joho/godotenv/autoload"
+	"github.com/kmurata798/goslackit/slack"
 )
 
 // main is our entrypoint, where the application initializes the Slackbot.
@@ -22,3 +22,17 @@ func slackIt() {
 	slackClient := slack.CreateSlackClient(botToken)
 	slack.RespondToEvents(slackClient)
 }
+
+// // slackbot post a message to the channel hardcoded...
+// func main() {
+// 	api := slack.New("xoxb-47155861858-961882851860-DWiMaHLqYSNWGP9NNrMu1dUI")
+// 	// user, err := api.GetUserInfo("UMS8J6KNK")
+// 	// if err != nil {
+// 	// 	fmt.Printf("%s\n", err)
+// 	// 	return
+// 	// api.PostMessage("golang-slackbots", slack.MsgOptionText("Hello people!", false))
+// 	options := slack.MsgOptionText("hello guys!", true)
+// 	api.PostMessage("golang-slackbots", options)
+
+// }
+// fmt.Printf("ID: %s, Fullname: %s, Email: %s\n", user.ID, user.Profile.RealName, user.Profile.Email)
