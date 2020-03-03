@@ -13,8 +13,6 @@ import (
    NOTE: command_arg_1 and command_arg_2 represent optional parameteras that you define
    in the Slack API UI
 */
-const helpMessage = "type in '@Text to Gif <command_arg_1> <command_arg_2>. \n\n '"
-
 /*
    CreateSlackClient sets up the slack RTM (real-timemessaging) client library,
    initiating the socket connection and returning the client.
@@ -44,14 +42,6 @@ func RespondToEvents(slackClient *slack.RTM) {
 			}
 			message := strings.Replace(ev.Msg.Text, botTagString, "", -1)
 
-			// TODO: Make your bot do more than respond to a help command. See notes below.
-			// Make changes below this line and add additional funcs to support your bot's functionality.
-			// sendHelp is provided as a simple example. Your team may want to call a free external API
-			// in a function called sendResponse that you'd create below the definition of sendHelp,
-			// and call in this context to ensure execution when the bot receives an event.
-
-			// START SLACKBOT CUSTOM CODE
-			// ===============================================================
 			splitMessage := strings.Fields(message) //seperates string
 
 			//leaving a blank command will display the help menu
@@ -65,9 +55,7 @@ func RespondToEvents(slackClient *slack.RTM) {
 			case "help":
 				sendHelp(slackClient, ev.Channel)
 			case "echo":
-				echoMessage(slackClient, strings.Join(splitMessage[1:], " "), ev.Channel)
-			// case "gif":
-			// 	sendGif(slackClient, splitMessage[1:], ev.Channel)
+				echoMessage(slackClient, strings.Join(splitMessage[:], " "), ev.Channel)
 			}
 		case *slack.PresenceChangeEvent:
 			fmt.Printf("Presence Change: %v\n", ev)
@@ -84,40 +72,21 @@ func RespondToEvents(slackClient *slack.RTM) {
 		case *slack.InvalidAuthEvent:
 			fmt.Printf("Invalid credentials")
 			return
-			// ===============================================================
-			// END SLACKBOT CUSTOM CODE
 		default:
-
 		}
 	}
 }
+
+const helpMessage = "type in '@Text to Gif <command_arg_1> <command_arg_2>. \n\nCommands:\n`help`\n`echo <text>`"
 
 // sendHelp is a working help message, for reference.
 func sendHelp(slackClient *slack.RTM, slackChannel string) {
 	slackClient.SendMessage(slackClient.NewOutgoingMessage(helpMessage, slackChannel))
 }
 
-// sendResponse is NOT unimplemented --- write code in the function body to complete!
-
-// func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
-// 	command := strings.ToLower(message)
-// 	println("[RECEIVED] sendResponse:", command)
-
-// 	slackClient.SendMessage(slackClient.NewOutgoingMessage(command, slackChannel))
-// }
 // echoMessage will just echo anything after the echo keyword.
 func echoMessage(slackClient *slack.RTM, message, slackChannel string) {
 	splitMessage := strings.Fields(strings.ToLower(message))
 
 	slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(splitMessage[1:], " "), slackChannel))
 }
-
-	// START SLACKBOT CUSTOM CODE
-	// ===============================================================
-	// TODO:
-	//      1. Implement sendResponse for one or more of your custom Slackbot commands.
-	//         You could call an external API here, or create your own string response. Anything goes!
-	//      2. STRETCH: Write a goroutine that calls an external API based on the data received in this function.
-	// ===============================================================
-	// END SLACKBOT CUSTOM CODE
-

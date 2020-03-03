@@ -11,3 +11,9 @@
 ## Instructions
 
 Follow [this link](https://github.com/Make-School-Courses/BEW-2.5-Strongly-Typed-Ecosystems/blob/master/Lessons/Lesson07.md#setup-project) in order to get the project set up.
+
+## TODO
+1. [x] Need to modify/insert slack user input into url variable for GIPHY API.
+2. [] Grab the name/title of the GIF we want so we can output it into the slack channel. (JSON?)
+3. [] Grab the GIF url so that we can output it into the slack channel. (JSON?)
+4. [] Add the command to the switch in slack.go, similar to the echo command, so that users can type in a word/phrase and the slackbot can respond with the gif and its name.

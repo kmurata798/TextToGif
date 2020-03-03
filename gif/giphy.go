@@ -1,15 +1,48 @@
 // Giphy API
-url := "https://giphy.p.rapidapi.com/v1/gifs/search?q=funny%20cat&api_key=dc6zaTOxFJmzC"
+package gif
 
-req, _ := http.NewRequest("GET", url, nil)
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
+)
 
-req.Header.Add("x-rapidapi-host", "giphy.p.rapidapi.com")
-req.Header.Add("x-rapidapi-key", "72e63c5d87mshd02228ed7648d08p18efccjsn6164b5d330ec")
+// gif represents the closest matching gif based on the user's input
+type gif struct {
+	Post []string `json:"post"`
+}
 
-res, _ := http.DefaultClient.Do(req)
+func searchGifs(userInput string) {
+	// Modify userInput to be insertable into url variable
+	input := userInput
+	newInput := strings.ReplaceAll(input, " ", "%20")
+	fmt.Println(input + " ==> What the user inputted,\n" + newInput + " ==> What the input is modified to.")
 
-defer res.Body.Close()
-body, _ := ioutil.ReadAll(res.Body)
+	url := "https://giphy.p.rapidapi.com/v1/gifs/search?q=" + newInput + "&api_key=dc6zaTOxFJmzC"
 
-fmt.Println(res)
-fmt.Println(string(body))
+	req, _ := http.NewRequest("GET", url, nil)
+
+	req.Header.Add("x-rapidapi-host", "giphy.p.rapidapi.com")
+	req.Header.Add("x-rapidapi-key", "72e63c5d87mshd02228ed7648d08p18efccjsn6164b5d330ec")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	// fmt.Println(res)
+	// fmt.Println(string(body))
+	var theGif []string
+	theGif = append(theGif, string(body))
+	gif1 := gif{Post: theGif}
+	fmt.Println(gif1)
+
+	gif1JSON, _ := json.MarshalIndent(gif1, "", "    ")
+	fmt.Println(string(gif1JSON))
+}
+
+func main() {
+	searchGifs("Get out of bed")
+}
