@@ -14,13 +14,17 @@ type gif struct {
 	Post []string `json:"post"`
 }
 
-func searchGifs(userInput string) {
-	// Modify userInput to be insertable into url variable
+func modifyInput(userInput string) string {
 	input := userInput
 	newInput := strings.ReplaceAll(input, " ", "%20")
 	fmt.Println(input + " ==> What the user inputted,\n" + newInput + " ==> What the input is modified to.")
+	return newInput
+}
 
-	url := "https://giphy.p.rapidapi.com/v1/gifs/search?q=" + newInput + "&api_key=dc6zaTOxFJmzC"
+func searchGifs(userInput string) {
+	// Modify userInput to be insertable into url variable
+
+	url := "https://giphy.p.rapidapi.com/v1/gifs/search?q=" + modifyInput(userInput) + "&api_key=dc6zaTOxFJmzC"
 
 	req, _ := http.NewRequest("GET", url, nil)
 
