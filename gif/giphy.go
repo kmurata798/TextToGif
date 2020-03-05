@@ -15,15 +15,40 @@ type gif struct {
 }
 
 func modifyInput(userInput string) string {
+	// Modify userInput to be insertable into url variable
 	input := userInput
+	// replace all replaces target char/string with desired char/string
 	newInput := strings.ReplaceAll(input, " ", "%20")
 	fmt.Println(input + " ==> What the user inputted,\n" + newInput + " ==> What the input is modified to.")
 	return newInput
 }
+func between(value string, a string, b string) string {
+	// Get substring between two strings.
+	startingPoint := strings.Index(value, a)
+	// strings.Index() give the index where the target string, a, exists in the given string, value
+	if startingPoint == -1 {
+		return ""
+	}
+	endPoint := strings.Index(value, b)
+	// same as startingPoint variable, but gives the endpoint string index
+	if endPoint == -1 {
+		return ""
+	}
+	subStringStartingPoint := startingPoint + len(a)
+	/* This variable is assigned the index where the starting point string begins, then adding the length of the starting point string
+	which is the the starting point of the target string we are trying to grab.
+	*/
+	if subStringStartingPoint >= endPoint {
+		return ""
+	}
+	// from the given string, return the substring in between the startingPointAdjusted
+	return value[subStringStartingPoint:endPoint]
+}
 
 func searchGifs(userInput string) {
-	// Modify userInput to be insertable into url variable
-
+	// Implementing GIPHY API
+	// ==BEGINNING OF GIPHY API==
+	// Modifying requested GIPHY API url to allow user input to dynamically be inserted into the url.
 	url := "https://giphy.p.rapidapi.com/v1/gifs/search?q=" + modifyInput(userInput) + "&api_key=dc6zaTOxFJmzC"
 
 	req, _ := http.NewRequest("GET", url, nil)
@@ -38,6 +63,14 @@ func searchGifs(userInput string) {
 
 	// fmt.Println(res)
 	// fmt.Println(string(body))
+	// ==END OF GIPHY API==
+
+	cleanedGifUrl := strings.ReplaceAll(string(body), "\\", "")
+	// fmt.Println(replacedGif1)
+	cleanedGifUrl2 := strings.ReplaceAll(cleanedGifUrl, "\"", "")
+	// fmt.Println(replacedGif2)
+	// findUrl :=
+	fmt.Println(between(cleanedGifUrl2, "url:", ",slug:"))
 	var theGif []string
 	theGif = append(theGif, string(body))
 	gif1 := gif{Post: theGif}
