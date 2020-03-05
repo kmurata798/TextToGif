@@ -80,6 +80,6 @@ func searchGifs(userInput string) {
 	fmt.Println(string(gif1JSON))
 }
 
-func main() {
-	searchGifs("Get out of bed")
-}
+// func main() {
+// 	searchGifs("Get out of bed")
+// }

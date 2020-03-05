@@ -3,9 +3,9 @@ package slack
 import (
 	"fmt"
 	"strings"
-
 	"github.com/slack-go/slack"
-	// "github.com/kmurata798/goslackit/giphy"
+
+	"github.com/kmurata798/gif"
 )
 
 /*
@@ -56,6 +56,8 @@ func RespondToEvents(slackClient *slack.RTM) {
 				sendHelp(slackClient, ev.Channel)
 			case "echo":
 				echoMessage(slackClient, strings.Join(splitMessage[:], " "), ev.Channel)
+			case "gif":
+				returnGif(slackClient, splitMessage[1:], ev.Channel)
 			}
 		case *slack.PresenceChangeEvent:
 			fmt.Printf("Presence Change: %v\n", ev)
@@ -77,7 +79,7 @@ func RespondToEvents(slackClient *slack.RTM) {
 	}
 }
 
-const helpMessage = "type in '@Text to Gif <command_arg_1> <command_arg_2>. \n\nCommands:\n`help`\n`echo <text>`"
+const helpMessage = "Type in `@Text to Gif <command_arg_1> <command_arg_2>` to use bot commands.\n\nCommands:\n`help`\n`echo <text>`\n`gif <text>`"
 
 // sendHelp is a working help message, for reference.
 func sendHelp(slackClient *slack.RTM, slackChannel string) {
@@ -89,4 +91,14 @@ func echoMessage(slackClient *slack.RTM, message, slackChannel string) {
 	splitMessage := strings.Fields(strings.ToLower(message))
 
 	slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(splitMessage[1:], " "), slackChannel))
+}
+
+func returnGif(slackClient *slack.RTM, args []string, slackChannel string) {
+	response := "Please pass in text to get a relative Gif. Example: `@Text to Gif gif I'm hungry`"
+	if len(args) == 0 {
+		slackClient.SendMessage(slackClient.NewOutgoingMessage(response, slackChannel))
+	}
+
+	posts := gif.searchGifs(args[0])
+	slackClient.SendMessage(slackClient.NewOutgoingMessage(posts, slackChannel))
 }
