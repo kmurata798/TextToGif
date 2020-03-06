@@ -2,7 +2,6 @@
 package gif
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -45,7 +44,7 @@ func between(value string, a string, b string) string {
 	return value[subStringStartingPoint:endPoint]
 }
 
-func searchGifs(userInput string) {
+func SearchGifs(userInput string) string {
 	// Implementing GIPHY API
 	// ==BEGINNING OF GIPHY API==
 	// Modifying requested GIPHY API url to allow user input to dynamically be inserted into the url.
@@ -69,17 +68,8 @@ func searchGifs(userInput string) {
 	// fmt.Println(replacedGif1)
 	cleanedGifUrl2 := strings.ReplaceAll(cleanedGifUrl, "\"", "")
 	// fmt.Println(replacedGif2)
-	// findUrl :=
+
 	fmt.Println(between(cleanedGifUrl2, "url:", ",slug:"))
-	var theGif []string
-	theGif = append(theGif, string(body))
-	gif1 := gif{Post: theGif}
-	fmt.Println(gif1)
-
-	gif1JSON, _ := json.MarshalIndent(gif1, "", "    ")
-	fmt.Println(string(gif1JSON))
+	gifURL := between(cleanedGifUrl2, "url:", ",slug:")
+	return gifURL
 }
-
-// func main() {
-// 	searchGifs("Get out of bed")
-// }

@@ -10,4 +10,4 @@ require (
 	github.com/slack-go/slack v0.6.2
 )
 
-go 1.13
+go 1.14

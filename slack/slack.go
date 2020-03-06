@@ -3,9 +3,9 @@ package slack
 import (
 	"fmt"
 	"strings"
-	"github.com/slack-go/slack"
 
-	"github.com/kmurata798/gif"
+	"github.com/kmurata798/goslackit/gif"
+	"github.com/slack-go/slack"
 )
 
 /*
@@ -93,12 +93,13 @@ func echoMessage(slackClient *slack.RTM, message, slackChannel string) {
 	slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(splitMessage[1:], " "), slackChannel))
 }
 
+// returnGif returns a gif url based on the slack user's input text
 func returnGif(slackClient *slack.RTM, args []string, slackChannel string) {
 	response := "Please pass in text to get a relative Gif. Example: `@Text to Gif gif I'm hungry`"
 	if len(args) == 0 {
 		slackClient.SendMessage(slackClient.NewOutgoingMessage(response, slackChannel))
 	}
 
-	posts := gif.searchGifs(args[0])
-	slackClient.SendMessage(slackClient.NewOutgoingMessage(posts, slackChannel))
+	gifURL := gif.SearchGifs(args[0])
+	slackClient.SendMessage(slackClient.NewOutgoingMessage(gifURL, slackChannel))
 }
