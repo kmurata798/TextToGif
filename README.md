@@ -10,7 +10,9 @@
 
 # Install instructions
 1. Clone repository into GOPATH
-2. `cd goslackit<br>go build<br>./goslackit`
+2. ```cd goslackit
+  go build
+  ./goslackit```
 
 # SlackBot Instructions
 
