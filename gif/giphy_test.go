@@ -54,3 +54,23 @@ func TestTableBetween(t *testing.T) {
 		}
 	}
 }
+
+// Benchmark tests
+/* I don't understand why the benchmark test loops multiple times:
+91147             12215 ns/op
+PASS
+ok      github.com/kmurata798/goslackit/gif     2.260s
+??? :O
+*/
+
+func benchmarkModifyInput(input string, b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		ModifyInput(input)
+	}
+}
+
+func BenchmarkModifyInputOhMyGoodness(b *testing.B) { benchmarkModifyInput("Oh my goodness!", b) }
+
+// All these 3 benchmark tests work, but they loop multiple times for some reason.
+// func BenchmarkModifyInputGetToTheChoppo(b *testing.B) { benchmarkModifyInput("Get to the choppa!", b) }
+// func BenchmarkModifyInputGrabTheBag(b *testing.B)     { benchmarkModifyInput("Grab the bag.", b) }
