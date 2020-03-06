@@ -85,6 +85,6 @@ _Instructor feedback will appear in this space._
 3. [x] Add the command to the switch in slack.go, similar to the echo command, so that users can type in a word/phrase and the slackbot can respond with the gif and its name.
 
 # Ask Dani for help:
-1. Tried to update my Go version. Show the error you get, ask what you should do.
-2. Tried to do the last step on my TODO list, but whenever I tried to import the 'github.com/kmurata798/goslackit/gif package' It would give me an error!
-3. That should be it, then my slackbot should perform properly!
+1. [x] Tried to update my Go version. Show the error you get, ask what you should do.
+2. [x] Tried to do the last step on my TODO list, but whenever I tried to import the 'github.com/kmurata798/goslackit/gif package' It would give me an error!
+3. [x] That should be it, then my slackbot should perform properly!
