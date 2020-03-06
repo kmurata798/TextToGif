@@ -8,7 +8,7 @@
 
 [BEW2.5] Fork this repo to begin the Slackbot goroutines challenge presented in class on [Day 7](https://github.com/Make-School-Courses/BEW-2.5-Strongly-Typed-Ecosystems/blob/master/Lessons/Lesson07.md).
 
-# Install instructions
+# Install instructions + How to use:
 1. Clone repository into GOPATH
 2. Go into the directory and run the program:
 ```sh
@@ -16,10 +16,8 @@ cd goslackit
 go build
 ./goslackit
 ```
-
-# SlackBot Instructions
-
-Follow [this link](https://github.com/Make-School-Courses/BEW-2.5-Strongly-Typed-Ecosystems/blob/master/Lessons/Lesson07.md#setup-project) in order to get the project set up.
+3. Once the program is running successfully, you need to invite `Text to Gif` Bot into your desired Slack channel.
+4. Once the bot is added, you can type, `@Text to Gif help` to see how to use the commands.
 
 # MakeUtility Project
 
