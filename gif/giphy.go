@@ -34,8 +34,8 @@ func Between(given string, first string, second string) string {
 		return ""
 	}
 	subStringStartingPoint := startingPoint + len(first)
-	/* This variable is assigned the index where the starting point string begins, then adding the length of the starting point string
-	which is the the starting point of the target string we are trying to grab.
+	/* This variable is assigned the index where the starting point string begins, then adding the length of the 
+	starting point string which is the the starting point of the target string we are trying to grab.
 	*/
 	if subStringStartingPoint >= endPoint {
 		return ""
