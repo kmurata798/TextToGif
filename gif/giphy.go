@@ -9,9 +9,6 @@ import (
 )
 
 // gif represents the closest matching gif based on the user's input
-type gif struct {
-	Post []string `json:"post"`
-}
 
 func ModifyInput(userInput string) string {
 	// Modify userInput to be insertable into url variable
