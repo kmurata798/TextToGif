@@ -79,8 +79,7 @@ func RespondToEvents(slackClient *slack.RTM) {
 	}
 }
 
-const helpMessage = "Type in `@Text to Gif <command_arg_1> <command_arg_2>` to use bot commands.\n\n
-						Commands:\n`help`\n`echo <text>`\n`gif <text>`"
+const helpMessage = "Type in `@Text to Gif <command_arg_1> <command_arg_2>` to use bot commands.\n\nCommands:\n`help`\n`echo <text>`\n`gif <text>`"
 
 // sendHelp is a working help message, for reference.
 func sendHelp(slackClient *slack.RTM, slackChannel string) {
