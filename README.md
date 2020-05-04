@@ -1,12 +1,7 @@
 <p align="center">
   <img src="gopher-typing.gif" height="250">
 </p>
-
-# GameTrace Website Link (Heroku app):  https://gametrace.herokuapp.com
-![GameTrace image](/images/GameTrace-Thumbnail.jpg)
-
-### Need to make changes to database to postgre ==> heroku keeps reseting database
-
+# Text to Gif : A Slack Bot made with Go
 
 ## Description
 
@@ -19,37 +14,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-All dependencies are listed in the requirements.txt file in the repository.
+Golang
+Slack API (For the slack bot.)
 
-### Installing
-
-Clone this repository (Don't include the $. This symbol indicates that you need to write this command in the commandline in this repository):
-
+## Text to Gif Slack commands:
+There are three commands that come with my Slack bot:
+Command to view list of commands:
 ```
-$ git clone https://github.com/kmurata798/GameTrace.git
+- @Text to Gif help
 ```
-
-Traverse into the this repository:
-
+Command to have my Slack bot repeat desired text:
 ```
-$ cd /path/to/file/GameTrace
+- @Text to Gif echo <text you want the slack bot to repeat>
 ```
-
-Run virtual environment which carries all the dependencies needed for this program:
-
+Command to search for a gif:
 ```
-$ source venv/bin/activate
+- @Text to Gif gif <keywords you want to use to search for a random gif>
 ```
-
-Run the server in development mode:
-
-```
-$ export FLASK_ENV=development
-$ python3 run.py
-```
-
-Example of Running server:
-![example of development server](images/GameTrace-installment.png)
 
 ## Built With
 
