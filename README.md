@@ -1,6 +1,7 @@
 <p align="center">
   <img src="gopher-typing.gif" height="250">
 </p>
+
 # Text to Gif : A Slack Bot made with Go
 
 ## Description
