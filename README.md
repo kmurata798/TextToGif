@@ -21,15 +21,15 @@ Slack API (For the slack bot.)
 There are three commands that come with my Slack bot:
 Command to view list of commands:
 ```
-- @Text to Gif help
+@Text to Gif help
 ```
 Command to have my Slack bot repeat desired text:
 ```
-- @Text to Gif echo <text you want the slack bot to repeat>
+@Text to Gif echo <text you want the slack bot to repeat>
 ```
 Command to search for a gif:
 ```
-- @Text to Gif gif <keywords you want to use to search for a random gif>
+@Text to Gif gif <keywords you want to use to search for a random gif>
 ```
 
 ## Built With
